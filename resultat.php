@@ -99,6 +99,7 @@
       <li>Présence d'une masse anormale</li>
       <li>Épaisseur irrégulière de la paroi</li>
       <li>Zone hypoéchogène non définie</li>
+      <li>Amniotique bas</li>
     </ul>
   </div>
 

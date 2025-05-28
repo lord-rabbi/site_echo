@@ -6,17 +6,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    
     <div class="form-container">
         <h2>Formulaire d'Échographie</h2>
         <form action="" method="post" enctype="multipart/form-data">
-            <div class="input-group">
-                <label for="nom_patient">Nom :</label>
-                <input type="text" name="nom_patient" id="nom_patient" required>
-            </div>
-            <div class="input-group">
-                <label for="prenom_patient">Prénom :</label>
-                <input type="text" name="prenom_patient" id="prenom_patient" required>
-            </div>
+            
             <div class="input-group">
                 <label for="date">Date :</label>
                 <input type="date" name="date" id="date" required>
@@ -25,7 +19,7 @@
                 <label for="echographie">Échographie :</label>
                 <input type="file" name="echographie" id="echographie" accept="image/*" required>
             </div>
-            <button type="submit">Envoyer</button>
+            <button type="submit"><a href="resultat.html">Envoyer</a></button>
         </form>
     </div>
 </body>

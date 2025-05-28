@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>{{title}}</title>
+    <title>Accueil</title>
 </head>
 <body>
 
@@ -14,19 +14,17 @@
             <img src="images/log2.jpg" class="logo">
             
              <ul>
-                <li><a href="{{url_for('index')}}">Accueil</a></li>
-                <li><a href="{{url_for('analyse')}}">Analyse</a></li>
-                <li><a href="{{url_for('profil')}}">Profil</a></li>
+                <li><a href="">Accueil</a></li>
+                <li><a href="nouvelle_analyse.html">Analyse</a></li>
+                <li><a href="profil.html">Profil</a></li>
             </ul>
 
             <button class="btn"><img src="images/logo1.png">Echo</button>
         </nav>
 
         <div class="content">
-            <h1>{% block content %} {% endblock %}</h1>
+            <h1>Bienvenue sur "Echo"</h1>
             <p>Votre écho, notre précision : un diagnostic clair en un instant.</p>
-
-            <div class="form"></div>
         </div>
 
     </div>

@@ -1,3 +1,7 @@
+<?php
+session_start();
+$imagePath = isset($_SESSION['last_image']) ? $_SESSION['last_image'] : null;
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,7 +14,6 @@
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       box-sizing: border-box;
     }
-
     body {
       background-color: #f0f2f5;
       display: flex;
@@ -21,23 +24,21 @@
       text-align: center;
       padding: 20px;
     }
-
     .echographie-img {
-      width: 300px;
-      height: 200px;
-      object-fit: cover;
+      width: 600px;
+      height: 400px;
+      object-fit: contain; /* l’image est entièrement visible */
+      background-color: white; /* fond blanc autour de l’image si nécessaire */
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       margin-bottom: 20px;
       border: 4px solid #052659;
     }
-
     .progress-title {
       font-size: 22px;
       margin-bottom: 10px;
       color: #052659;
     }
-
     .progress-bar-container {
       width: 300px;
       height: 20px;
@@ -46,35 +47,28 @@
       overflow: hidden;
       margin-bottom: 20px;
     }
-
     .progress-bar {
-      width: 0%;
       height: 100%;
       background-color: rgba(9, 0, 77, 0.65);
-      transition: width 3s linear;
+      width: 0%;
     }
-
     .loading-text {
       margin-bottom: 30px;
       font-size: 16px;
       color: #444;
     }
-
     .anomalies {
       display: none;
     }
-
     .anomalies h3 {
       color: #c0392b;
       margin-bottom: 10px;
     }
-
     .anomalies ul {
       list-style: disc;
       padding-left: 20px;
       text-align: left;
     }
-
     .anomalies li {
       margin: 5px 0;
       color: #444;
@@ -83,14 +77,16 @@
 </head>
 <body>
 
-  <img src="images/imgl.jpg" alt="Image échographique" class="echographie-img">
+  <?php if ($imagePath): ?>
+    <img src="<?php echo htmlspecialchars($imagePath); ?>" alt="Image échographique" class="echographie-img">
+  <?php else: ?>
+    <p>Aucune image fournie.</p>
+  <?php endif; ?>
 
-  <div class="progress-title">Analyse échographique en cours...</div>
-  
+  <div class="progress-title" id="progressTitle">Analyse échographique en cours...</div>
   <div class="progress-bar-container">
     <div class="progress-bar" id="progressBar"></div>
   </div>
-
   <div class="loading-text" id="loadingText">Initialisation de l'analyse...</div>
 
   <div class="anomalies" id="anomalies">
@@ -104,24 +100,38 @@
   </div>
 
   <script>
-    const progress = document.getElementById('progressBar');
-    const anomalies = document.getElementById('anomalies');
+    const progressBar = document.getElementById('progressBar');
     const loadingText = document.getElementById('loadingText');
+    const progressTitle = document.getElementById('progressTitle');
+    const anomalies = document.getElementById('anomalies');
 
+    let percent = 0;
+    const interval = setInterval(() => {
+      percent++;
+      progressBar.style.width = percent + "%";
 
-    setTimeout(() => {
-      progress.style.width = '100%';
-      loadingText.textContent = "Analyse en cours...";
-    }, 300);
-
-    setTimeout(() => {
-      loadingText.textContent = "Détection des anomalies...";
-    }, 1500);
-    
-    setTimeout(() => {
-      loadingText.style.display = "none";
-      anomalies.style.display = "block";
-    }, 3300);
+      if (percent < 30) {
+        progressTitle.textContent = "Chargement de l'image...";
+        loadingText.textContent = "Analyse échographique à " + percent + "%";
+      } else if (percent < 60) {
+        progressTitle.textContent = "Analyse de la structure...";
+        loadingText.textContent = "Analyse échographique à " + percent + "%";
+      } else if (percent < 90) {
+        progressTitle.textContent = "Vérification des anomalies...";
+        loadingText.textContent = "Analyse échographique à " + percent + "%";
+      } else if (percent < 100) {
+        progressTitle.textContent = "Finalisation de l'analyse...";
+        loadingText.textContent = "Analyse échographique à " + percent + "%";
+      } else {
+        clearInterval(interval);
+        progressTitle.textContent = "Analyse terminée";
+        loadingText.textContent = "Analyse échographique à 100%";
+        setTimeout(() => {
+          loadingText.style.display = "none";
+          anomalies.style.display = "block";
+        }, 1000);
+      }
+    }, 70);
   </script>
 
 </body>

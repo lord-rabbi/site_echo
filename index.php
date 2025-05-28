@@ -15,8 +15,9 @@
             
              <ul>
                 <li><a href="">Accueil</a></li>
-                <li><a href="nouvelle_analyse.html">Analyse</a></li>
-                <li><a href="profil.html">Profil</a></li>
+                <li><a href="nouvelle_analyse.php">Analyse</a></li>
+                <li><a href="profil.php">Profil</a></li>
+                <li><a href="connection.php">connexion</a></li>
             </ul>
 
             <button class="btn"><img src="images/logo1.png">Echo</button>
